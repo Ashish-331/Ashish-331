@@ -1,17 +1,8 @@
 # ============================================================
-#  PROFILE ANIMATIONS — snake + trophies
-#  Correct location inside the repo:
+#  VISIBLE COPY — the real file must live at:
 #    .github/workflows/profile.yml
-#
-#  Generates:
-#    dist/snake.svg       (light-mode contribution snake)
-#    dist/snake-dark.svg  (dark-mode snake)
-#    dist/trophy.svg      (GitHub trophies, dracula theme)
-#  then publishes all three to a branch called "output",
-#  which README.md embeds as images.
-#
-#  Runs daily at 00:00 UTC, on every push to main, and can
-#  be triggered manually from the Actions tab.
+#  Create it on GitHub with "Add file -> Create new file"
+#  and type that path into the filename box.
 # ============================================================
 
 name: Generate Profile Animations
@@ -27,7 +18,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write          # required to push files to the output branch
+      contents: write
     steps:
       - name: Prepare output folder
         run: mkdir -p dist
@@ -39,14 +30,6 @@ jobs:
           outputs: |
             dist/snake.svg?palette=github-light
             dist/snake-dark.svg?palette=github-dark
-
-      - name: Generate trophies
-        uses: ryo-ma/github-profile-trophy@v1.0
-        with:
-          username: ${{ github.repository_owner }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-          theme: dracula
-          output_path: dist/trophy.svg
 
       - name: Publish generated files to output branch
         uses: crazy-max/ghaction-github-pages@v4
